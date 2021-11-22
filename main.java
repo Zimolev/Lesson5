@@ -40,23 +40,22 @@ public class Main {
         System.arraycopy(array, 0, a1, 0, h);
         System.arraycopy(array, h, a2, 0, h);
 
-        Runnable task = () -> {
+        Thread thread1 = new Thread(() -> {
             for (int i = 0; i < a1.length; i++) {
                 a1[i] = formula(a1[i], i);
             }
-        };
-            Thread thread = new Thread(task);
-            thread.start();
+        });
+            thread1.start();
 
-        Runnable task2 = () -> {
+
+        Thread thread2 = new Thread(() -> {
             for (int i = 0; i < a2.length; i++) {
                 a2[i] = formula(a2[i], i);
             }
-        };
-        Thread thread2 = new Thread(task2);
+        });
         thread2.start();
 
-        thread.join();
+        thread1.join();
         thread2.join();
 
         System.arraycopy(a1, 0, array, 0, h);
@@ -69,7 +68,7 @@ public class Main {
 
 
 
-    private static float formula(float value, int index) {
-        return (float) (value * Math.sin(0.2f + index / 5) * Math.cos(0.2f + index / 5) * Math.cos(0.4f + index / 2));
+    private static float formula(float array, int i) {
+        return (float) (array * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
     }
 }
