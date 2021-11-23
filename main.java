@@ -50,7 +50,8 @@ public class Main {
 
         Thread thread2 = new Thread(() -> {
             for (int i = 0; i < a2.length; i++) {
-                a2[i] = formula(a2[i], i);
+                    int j = i + 5000000;
+                a2[i] = formula(a2[i], j);
             }
         });
         thread2.start();
